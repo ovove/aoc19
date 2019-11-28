@@ -1,0 +1,15 @@
+﻿# https://zed0.co.uk/clang-format-configurator/
+---
+Language:     Cpp
+BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AllowAllArgumentsOnNextLine: false
+AllowAllConstructorInitializersOnNextLine: false
+BinPackArguments: false
+BinPackParameters: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+IndentWidth: 4
+Standard: Cpp11
+#TabWidth:    4
+#UseTab:      ForContinuationAndIndentation
+...

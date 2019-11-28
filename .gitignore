@@ -1,3 +1,16 @@
+# Emacs backups
+*~
+**/.emacs.backup
+
+# VS Code stuff
+/.vscode/
+/*.code-workspace
+
+# Index files
+GPATH
+GRTAGS
+GTAGS
+
 # Prerequisites
 *.d
 
@@ -30,3 +43,8 @@
 *.exe
 *.out
 *.app
+
+# CMake build directories
+/build/
+/debug/
+/release/
