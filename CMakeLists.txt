@@ -21,14 +21,21 @@ add_link_options(-pipe -pthread -march=native
 #ProcessorCount(NCPU)
 #message(STATUS "NCPU=${NCPU}")
 
+include(cmake/HunterGate.cmake)
+HunterGate(
+  URL "https://github.com/cpp-pm/hunter/archive/v0.23.233.tar.gz"
+  SHA1 "27387cd4ab6bbf7f1e7c998fe7ad2f7ec5b12930"
+)
+
 project(AdventOfCode19 LANGUAGES CXX)
+
+hunter_add_package(GTest)
+find_package(GTest CONFIG REQUIRED)
 
 include(GoogleTest)
 enable_testing()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-include(cmake/googletest.cmake)
 
 # Might use this to fetch puzzle data
 #include(ExternalData)
