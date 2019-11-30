@@ -3,11 +3,12 @@ ifeq "${VARIANT}" ""
 BUILD_DIR_:=build
 BUILD_TYPE_:=
 else
-ifeq "${VARIANT}" "release"
+VARIANT_ := $(shell echo ${VARIANT} | tr '[:upper:]' '[:lower:]')
+ifeq "${VARIANT_}" "release"
 BUILD_DIR_:=release
 BUILD_TYPE_:=-DCMAKE_BUILD_TYPE=Release
 else
-ifeq "${VARIANT}" "debug"
+ifeq "${VARIANT_}" "debug"
 BUILD_DIR_:=debug
 BUILD_TYPE_:=-DCMAKE_BUILD_TYPE=Debug
 else
