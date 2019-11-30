@@ -1,0 +1,7 @@
+language: c++
+sudo: false
+dist: bionic
+compiler: gcc
+packages:
+  - g++-8
+script: make test
