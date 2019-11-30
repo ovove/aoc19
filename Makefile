@@ -21,7 +21,7 @@ endif
 all: config build
 
 config:
-	CC=/opt/local/bin/gcc CXX=/opt/local/bin/g++ cmake -H. -B${BUILD_DIR_} ${BUILD_TYPE_}
+	cmake -H. -B${BUILD_DIR_} ${BUILD_TYPE_}
 
 build: config
 	make -C${BUILD_DIR_}
