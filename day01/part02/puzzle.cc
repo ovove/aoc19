@@ -1,35 +1,29 @@
 
-unsigned fuel_from_mass_calulator(unsigned mass) {
+namespace {
+inline unsigned fuel_from_mass_calulator(unsigned mass) {
     unsigned result = 0;
     while (mass > 0) {
-        const unsigned fuel =  ((mass / 3) >= 2) ? ((mass / 3) - 2) : 0;
+        const unsigned fuel = ((mass / 3) >= 2) ? ((mass / 3) - 2) : 0;
         result += fuel;
         mass = fuel;
     }
     return result;
 }
+} // namespace
 
 #if not defined(DO_UNIT_TEST)
-#include <algorithm>
-#include <filesystem>
-#include <fstream>
+
 #include <iostream>
 #include <iterator>
-#include <numeric>
 #include <vector>
 
+#include <range/v3/all.hpp>
+
 int main() {
-    // std::ifstream ifs("input");
-    std::istream_iterator<unsigned> beg(std::cin);
-    std::istream_iterator<unsigned> end;
-    const std::vector mass(beg, end);
-    auto get_fuel = [fun = fuel_from_mass_calulator](const auto &vec) {
-        std::vector<unsigned> res(vec.size());
-        std::transform(std::begin(vec), std::end(vec), std::begin(res), fun);
-        return res;
-    };
-    const auto fuel = get_fuel(mass);
-    const auto tot = std::accumulate(std::begin(fuel), std::end(fuel), 0);
+    const std::vector mass(std::istream_iterator<unsigned>(std::cin), std::istream_iterator<unsigned>());
+    using ranges::accumulate;
+    using ranges::view::transform;
+    const auto tot = accumulate(mass | transform(fuel_from_mass_calulator), 0);
     std::cout << tot << std::endl;
 }
 
