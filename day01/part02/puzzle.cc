@@ -16,11 +16,19 @@ inline unsigned fuel_from_mass_calulator(unsigned mass) {
 #include <iostream>
 #include <iterator>
 #include <vector>
+#include <fstream>
+#include <filesystem>
 
 #include <range/v3/all.hpp>
 
+#if !defined(BINARY_DIR)
+error "BINARY_DIR not defined"
+#endif
+
 int main() {
-    const std::vector mass(std::istream_iterator<unsigned>(std::cin), std::istream_iterator<unsigned>());
+    using std::filesystem::path;
+    std::ifstream ifs(path(BINARY_DIR) / path("..") / path("input"));
+    const std::vector mass(std::istream_iterator<unsigned>{ifs}, std::istream_iterator<unsigned>{});
     using ranges::accumulate;
     using ranges::view::transform;
     const auto tot = accumulate(mass | transform(fuel_from_mass_calulator), 0);
