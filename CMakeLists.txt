@@ -26,19 +26,23 @@ HunterGate(
   URL "https://github.com/cpp-pm/hunter/archive/v0.23.233.tar.gz"
   SHA1 "27387cd4ab6bbf7f1e7c998fe7ad2f7ec5b12930"
 )
+include(GoogleTest)
+#include(FetchContent)
+# Might use this to fetch puzzle data
+#include(ExternalData)
 
 project(AdventOfCode19 LANGUAGES CXX)
 
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
+hunter_add_package(range-v3)
+find_package(range-v3 CONFIG REQUIRED)
 
-include(GoogleTest)
 enable_testing()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Might use this to fetch puzzle data
-#include(ExternalData)
 
 # Add subdirectories below here
-add_subdirectory(day00)
+#add_subdirectory(day00)
+add_subdirectory(day01)
