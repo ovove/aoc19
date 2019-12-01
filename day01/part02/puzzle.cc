@@ -1,6 +1,6 @@
 
 namespace {
-inline unsigned fuel_from_mass_calulator(unsigned mass) {
+inline constexpr unsigned fuel_from_mass_calulator(unsigned mass) {
     unsigned result = 0;
     while (mass > 0) {
         const unsigned fuel = ((mass / 3) >= 2) ? ((mass / 3) - 2) : 0;
@@ -35,7 +35,7 @@ int main() {
     std::cout << tot << std::endl;
 }
 
-#else
+#else // DO_UNIT_TEST
 
 #include <gtest/gtest.h>
 
