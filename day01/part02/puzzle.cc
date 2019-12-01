@@ -18,7 +18,7 @@ inline constexpr unsigned fuel_from_mass_calulator(unsigned mass) {
 #include <range/v3/all.hpp>
 
 #if !defined(BINARY_DIR)
-error "BINARY_DIR not defined"
+#error "BINARY_DIR not defined"
 #endif
 
 int main() {
