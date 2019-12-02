@@ -44,3 +44,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Add subdirectories below here
 add_subdirectory(day01)
+add_subdirectory(day02)
