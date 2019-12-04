@@ -17,7 +17,7 @@ endif
 endif
 endif
 
-.PHONY: all config build test clean realclean
+.PHONY: all config build test clean realclean help
 
 all: config build
 
@@ -35,3 +35,7 @@ clean:
 
 realclean:
 	rm -rf ${BUILD_DIR_}
+
+help: config
+	make -C${BUILD_DIR_} help
+
