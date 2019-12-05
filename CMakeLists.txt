@@ -14,7 +14,7 @@ add_compile_options(-pipe -Wall -Wextra -pedantic -pthread -march=native
   $<$<CONFIG:Debug>:-fsanitize=address> $<$<CONFIG:Debug>:-fsanitize=undefined> $<$<CONFIG:Debug>:-fno-omit-frame-pointer>)
 add_link_options(-pipe -pthread -march=native
   $<$<CONFIG:Release>:-O3>
-  $<$<CONFIG:Release>:-flto> $<$<CONFIG:Release>:-s>
+  $<$<CONFIG:Release>:-flto>
   $<$<CONFIG:Debug>:-fsanitize=address> $<$<CONFIG:Debug>:-fsanitize=undefined> $<$<CONFIG:Debug>:-fno-omit-frame-pointer>)
 
 #include(ProcessorCount)
