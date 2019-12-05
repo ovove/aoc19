@@ -104,36 +104,35 @@ int main() {
 #else // DO_UNIT_TEST
 #include <gtest/gtest.h>
 
-TEST(DAY03_PART01, TEST01) {
+TEST(DAY03_PART02, TEST01) {
     const std::string_view path1 = "R8,U5,L5,D3";
     const std::string_view path2 = "U7,R6,D4,L4";
     const auto result = find_shortest_intersection_distance(path1, path2);
     ASSERT_EQ(result, 30U);
 }
 
-TEST(DAY03_PART01, TEST02) {
+TEST(DAY03_PART02, TEST02) {
     const std::string_view path1 = "R75,D30,R83,U83,L12,D49,R71,U7,L72";
     const std::string_view path2 = "U62,R66,U55,R34,D71,R55,D58,R83";
     const auto result = find_shortest_intersection_distance(path1, path2);
     ASSERT_EQ(result, 610U);
 }
 
-TEST(DAY03_PART01, TEST03) {
+TEST(DAY03_PART02, TEST03) {
     const std::string_view path1 = "R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51";
     const std::string_view path2 = "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7";
     const auto result = find_shortest_intersection_distance(path1, path2);
     ASSERT_EQ(result, 410U);
 }
 
-
-TEST(DAY03_PART01, TEST04) {
+TEST(DAY03_PART02, TEST04) {
     const std::string_view path1 = "R8,U5,L5,D6";
     const std::string_view path2 = "U7,R6,D4,L7";
     const auto result = find_shortest_intersection_distance(path1, path2);
     ASSERT_EQ(result, 30U);
 }
 
-TEST(DAY03_PART01, TEST05) {
+TEST(DAY03_PART02, TEST05) {
     const std::string_view path1 = "R8,U5,L5,D6,L4";
     const std::string_view path2 = "U7,R6,D4,L7,D4";
     const auto result = find_shortest_intersection_distance(path1, path2);
