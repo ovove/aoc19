@@ -9,11 +9,11 @@ inline constexpr unsigned fuel_from_mass_calulator(unsigned mass) {
 
 #if not defined(DO_UNIT_TEST)
 
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <iterator>
 #include <vector>
-#include <fstream>
-#include <filesystem>
 
 #include <range/v3/all.hpp>
 
@@ -25,10 +25,9 @@ int main() {
     using std::filesystem::path;
     std::ifstream ifs(path(BINARY_DIR) / path("..") / path("input"));
     const std::vector mass(std::istream_iterator<unsigned>{ifs}, std::istream_iterator<unsigned>{});
-    using ranges::accumulate;
-    using ranges::view::transform;
-    const auto tot = accumulate(mass | transform(fuel_from_mass_calulator), 0);
-    std::cout << tot << std::endl;
+    const auto fuel(mass | ranges::view::transform(fuel_from_mass_calulator));
+    const auto tot = ranges::accumulate(fuel, 0);
+    std::cout << tot << "\n";
 }
 
 #else // DO_UNIT_TEST
