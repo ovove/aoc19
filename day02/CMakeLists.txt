@@ -1,4 +1,6 @@
 
+set(PUZZLE_DAY 02)
+
 add_subdirectory(part01)
 add_subdirectory(part02)
 
