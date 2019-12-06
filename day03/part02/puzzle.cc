@@ -1,11 +1,11 @@
 
+#include <algorithm>
 #include <iostream>
 #include <iterator>
+#include <map>
 #include <string>
 #include <string_view>
 #include <vector>
-#include <map>
-#include <algorithm>
 
 // #include <range/v3/all.hpp>
 
@@ -24,9 +24,7 @@ struct Point {
     int x{0};
     int y{0};
 };
-inline bool operator==(Point p1, Point p2) {
-    return (p1.x == p2.x) and (p1.y == p2.y);
-}
+inline bool operator==(Point p1, Point p2) { return (p1.x == p2.x) and (p1.y == p2.y); }
 inline std::ostream& operator<<(std::ostream& os, Point p) {
     return os << '(' << p.x << ',' << p.y << ')';
 }
@@ -39,7 +37,7 @@ std::vector<Point> path_to_points(std::string_view path) {
                                                   {"D", {0, -1}}};
     Point pos{0, 0};
     result.push_back(pos);
-    for (std::string_view::size_type  beg = 0; beg != std::string_view::npos;) {
+    for (std::string_view::size_type beg = 0; beg != std::string_view::npos;) {
         const auto end = path.find(',', beg);
         const auto motion = path.substr(beg, end - beg);
         beg = (end != std::string_view::npos) ? end + 1 : std::string_view::npos;
@@ -56,8 +54,8 @@ std::vector<Point> path_to_points(std::string_view path) {
 
 std::vector<Point> intersections(const std::vector<Point>& path1, const std::vector<Point>& path2) {
     std::vector<Point> result;
-    for (auto p: path1) {
-        if (p == Point{0,0}) continue;
+    for (auto p : path1) {
+        if (p == Point{0, 0}) continue;
         if (std::find(std::begin(path2), std::end(path2), p) == std::end(path2)) continue;
         if (std::find(std::begin(result), std::end(result), p) != std::end(result)) continue;
         result.push_back(p);
@@ -71,7 +69,7 @@ inline unsigned find_shortest_intersection_distance(std::string_view path1,
     const auto p2 = path_to_points(path2);
     const auto cross = intersections(p1, p2);
     std::vector<unsigned> distances;
-    for (const auto x: cross) {
+    for (const auto x : cross) {
         const auto it1 = std::find(std::begin(p1), std::end(p1), x);
         const auto it2 = std::find(std::begin(p2), std::end(p2), x);
         const auto d1 = std::distance(std::begin(p1), it1);
@@ -87,9 +85,9 @@ inline unsigned find_shortest_intersection_distance(std::string_view path1,
 
 #if not defined(DO_UNIT_TEST)
 
-#include <iostream>
-#include <fstream>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
 
 int main() {
     using std::filesystem::path;

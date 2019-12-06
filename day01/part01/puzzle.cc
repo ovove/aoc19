@@ -15,7 +15,7 @@ int main() {
     std::istream_iterator<unsigned> beg(std::cin);
     std::istream_iterator<unsigned> end;
     const std::vector mass(beg, end);
-    auto get_fuel = [fun = fuel_from_mass_calulator](const auto &vec) {
+    auto get_fuel = [fun = fuel_from_mass_calulator](const auto& vec) {
         std::vector<unsigned> res(vec.size());
         std::transform(std::begin(vec), std::end(vec), std::begin(res), fun);
         return res;

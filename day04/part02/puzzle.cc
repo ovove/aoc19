@@ -1,6 +1,6 @@
 
-#include <iostream>
 #include <array>
+#include <iostream>
 #include <stdexcept>
 
 // #include <range/v3/all.hpp>
@@ -10,11 +10,16 @@ namespace {
 std::array<int, 6> pwd_to_array(int pwd) {
     if (pwd < 100000 or pwd > 999999) throw std::out_of_range("pwd is out of range");
     std::array<int, 6> result;
-    result[5] = pwd % 10; pwd /= 10;
-    result[4] = pwd % 10; pwd /= 10;
-    result[3] = pwd % 10; pwd /= 10;
-    result[2] = pwd % 10; pwd /= 10;
-    result[1] = pwd % 10; pwd /= 10;
+    result[5] = pwd % 10;
+    pwd /= 10;
+    result[4] = pwd % 10;
+    pwd /= 10;
+    result[3] = pwd % 10;
+    pwd /= 10;
+    result[2] = pwd % 10;
+    pwd /= 10;
+    result[1] = pwd % 10;
+    pwd /= 10;
     result[0] = pwd % 10;
     return result;
 }

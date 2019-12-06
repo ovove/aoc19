@@ -1,6 +1,7 @@
 ﻿# https://zed0.co.uk/clang-format-configurator/
 ---
 Language:     Cpp
+AlwaysBreakTemplateDeclarations: MultiLine
 AllowShortIfStatementsOnASingleLine: true
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
