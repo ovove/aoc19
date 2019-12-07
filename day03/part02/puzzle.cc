@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iterator>
 #include <map>
+#include <regex>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -37,14 +38,15 @@ std::vector<Point> path_to_points(std::string_view path) {
                                                   {"D", {0, -1}}};
     Point pos{0, 0};
     result.push_back(pos);
-    for (std::string_view::size_type beg = 0; beg != std::string_view::npos;) {
-        const auto end = path.find(',', beg);
-        const auto motion = path.substr(beg, end - beg);
-        beg = (end != std::string_view::npos) ? end + 1 : std::string_view::npos;
-        const auto direction = motion.substr(0, 1);
-        const auto& step = steps.at(direction);
-        const auto distance = motion.substr(1);
-        for (int dist = std::stoi(std::string(distance)); dist; --dist) {
+    std::regex reg(R"(([LRUD])([1-9][0-9]*),?)");
+    const std::cregex_iterator rbeg = std::cregex_iterator(std::begin(path), std::end(path), reg);
+    const std::cregex_iterator rend = std::cregex_iterator();
+    for (auto it = rbeg; it != rend; ++it) {
+        const auto match = *it;
+        const auto dir = match[1].str();
+        const auto step = steps.at(dir);
+        const auto dist = std::stoi(match[2].str());
+        for (int d = 0; d < dist; ++d) {
             pos += step;
             result.push_back(pos);
         }
@@ -56,8 +58,9 @@ std::vector<Point> intersections(const std::vector<Point>& path1, const std::vec
     std::vector<Point> result;
     for (auto p : path1) {
         if (p == Point{0, 0}) continue;
-        if (std::find(std::begin(path2), std::end(path2), p) == std::end(path2)) continue;
-        if (std::find(std::begin(result), std::end(result), p) != std::end(result)) continue;
+        const auto same_point = [p1 = p](auto p2){ return p1 == p2; };
+        if (not std::any_of(std::begin(path2), std::end(path2), same_point)) continue;
+        if (std::any_of(std::begin(result), std::end(result), same_point)) continue;
         result.push_back(p);
     }
     return result;
