@@ -2,6 +2,7 @@
 ---
 Language:     Cpp
 AlwaysBreakTemplateDeclarations: MultiLine
+AllowShortCaseLabelsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: true
 BasedOnStyle: LLVM
 AccessModifierOffset: -4

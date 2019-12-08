@@ -13,9 +13,9 @@
 namespace {
 
 struct Point {
-    Point() = default;
-    Point(int x, int y) : x(x), y(y) {}
-    Point& operator+=(const Point& rhs) {
+    constexpr Point() = default;
+    constexpr Point(int x, int y) : x(x), y(y) {}
+    constexpr Point& operator+=(const Point& rhs) {
         x += rhs.x;
         y += rhs.y;
         return *this;
@@ -23,7 +23,7 @@ struct Point {
     int x{0};
     int y{0};
 };
-inline bool operator==(Point p1, Point p2) { return (p1.x == p2.x) and (p1.y == p2.y); }
+constexpr bool operator==(Point p1, Point p2) { return (p1.x == p2.x) and (p1.y == p2.y); }
 inline std::ostream& operator<<(std::ostream& os, Point p) {
     return os << '(' << p.x << ',' << p.y << ')';
 }
@@ -40,19 +40,24 @@ template <> struct std::hash<Point> {
 namespace {
 
 auto path_to_points(std::string_view path) {
-    const std::map<std::string_view, Point> steps{{"L", {-1, 0}},
-                                                  {"R", {+1, 0}},
-                                                  {"U", {0, +1}},
-                                                  {"D", {0, -1}}};
     std::vector<Point> result;
-    Point pos{0, 0};
-    result.push_back(pos);
-    std::regex reg(R"(([LRUD])([1-9][0-9]*),?)");
+    result.reserve(path.size() / 3); // guestimate how many Points
+    result.emplace_back(0,0);
+    const std::regex reg(R"(([LRUD])([1-9][0-9]*),?)");
     std::for_each(std::cregex_iterator(std::begin(path), std::end(path), reg),
                   std::cregex_iterator(),
-                  [&steps, &pos, &result](const auto& match) {
-                      const auto dir = match[1].str();
-                      const auto step = steps.at(dir);
+                  [pos = Point(), &result](const auto& match) mutable {
+                      const auto steps = [](auto s) -> Point {
+                          switch (s) {
+                          case 'L': return {-1, 0};
+                          case 'R': return {+1, 0};
+                          case 'D': return {0, -1};
+                          case 'U': return {0, +1};
+                          default: throw std::out_of_range("Unknown direction.");
+                          }
+                      };
+                      const auto dir = match[1].str()[0];
+                      const auto step = steps(dir);
                       const auto dist = std::stoi(match[2].str());
                       for (int d = 0; d < dist; ++d) {
                           pos += step;
@@ -68,8 +73,7 @@ auto intersections(const std::vector<Point>& path1, const std::vector<Point>& pa
         const std::unordered_set<Point> plong(std::begin(longest_path), std::end(longest_path));
         std::unordered_set<Point> result;
         for (auto p : pshort) {
-            if (p == Point{0, 0}) continue;
-            if (0 == plong.count(p)) continue;
+            if ((p == Point{0, 0}) or (0 == plong.count(p))) continue;
             result.insert(p);
         }
         return result;
@@ -78,7 +82,7 @@ auto intersections(const std::vector<Point>& path1, const std::vector<Point>& pa
                                           : intersections_(path2, path1);
 }
 
-inline unsigned find_shortest_intersection_distance(std::string_view path1,
+unsigned find_shortest_intersection_distance(std::string_view path1,
                                                     std::string_view path2) {
     const auto p1 = path_to_points(path1);
     const auto p2 = path_to_points(path2);
