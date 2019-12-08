@@ -67,7 +67,7 @@ auto intersections(const std::vector<Point>& path1, const std::vector<Point>& pa
     std::unordered_set<Point> result;
     for (auto p : path1) {
         if (p == Point{0, 0}) continue;
-        if (0 != path2_as_set.count(p)) continue;
+        if (0 == path2_as_set.count(p)) continue;
         result.insert(p);
     }
     return result;
