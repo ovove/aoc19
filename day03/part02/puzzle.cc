@@ -63,14 +63,19 @@ auto path_to_points(std::string_view path) {
 }
 
 auto intersections(const std::vector<Point>& path1, const std::vector<Point>& path2) {
-    const std::unordered_set<Point> path2_as_set(std::begin(path2), std::end(path2));
-    std::unordered_set<Point> result;
-    for (auto p : path1) {
-        if (p == Point{0, 0}) continue;
-        if (0 == path2_as_set.count(p)) continue;
-        result.insert(p);
-    }
-    return result;
+    const auto intersections_ = [](const auto& shortest_path, const auto& longest_path) {
+        const auto& pshort = shortest_path;
+        const std::unordered_set<Point> plong(std::begin(longest_path), std::end(longest_path));
+        std::unordered_set<Point> result;
+        for (auto p : pshort) {
+            if (p == Point{0, 0}) continue;
+            if (0 == plong.count(p)) continue;
+            result.insert(p);
+        }
+        return result;
+    };
+    return (path1.size() <= path2.size()) ? intersections_(path1, path2)
+                                          : intersections_(path2, path1);
 }
 
 inline unsigned find_shortest_intersection_distance(std::string_view path1,
