@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <iostream>
 #include <iterator>
-#include <map>
 #include <regex>
 #include <set>
 #include <string>
@@ -42,7 +41,7 @@ namespace {
 auto path_to_points(std::string_view path) {
     std::vector<Point> result;
     result.reserve(path.size() / 3); // guestimate how many Points
-    result.emplace_back(0,0);
+    result.emplace_back(0, 0);
     const std::regex reg(R"(([LRUD])([1-9][0-9]*),?)");
     std::for_each(std::cregex_iterator(std::begin(path), std::end(path), reg),
                   std::cregex_iterator(),
@@ -82,8 +81,7 @@ auto intersections(const std::vector<Point>& path1, const std::vector<Point>& pa
                                           : intersections_(path2, path1);
 }
 
-unsigned find_shortest_intersection_distance(std::string_view path1,
-                                                    std::string_view path2) {
+unsigned find_shortest_intersection_distance(std::string_view path1, std::string_view path2) {
     const auto p1 = path_to_points(path1);
     const auto p2 = path_to_points(path2);
     const auto cross = intersections(p1, p2);
