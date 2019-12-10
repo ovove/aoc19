@@ -4,7 +4,7 @@ set(PUZZLE_TARGET "puzzled${PUZZLE_DAY}p${PUZZLE_PART}")
 set(TEST_TARGET "testd${PUZZLE_DAY}p${PUZZLE_PART}")
 
 if (APPLE AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-  message(WARNING "***: if (APPLE AND CMAKE_BUILD_TYPE STREQUAL Debug): link error caused by visibility of some std::regex symbols.")
+  message(STATUS "***: if (APPLE AND CMAKE_BUILD_TYPE STREQUAL Debug): link error caused by visibility of some std::regex symbols.")
 
 else()
   add_executable(${PUZZLE_TARGET} puzzle.cc)
