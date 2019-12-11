@@ -65,7 +65,7 @@ int main() {
 #include <gtest/gtest.h>
 #include <sstream>
 
-TEST(DAY03_PART01, TEST01) {
+TEST(DAY06_PART01, TEST01) {
     const std::string map = R"(
 COM)B
 B)C
