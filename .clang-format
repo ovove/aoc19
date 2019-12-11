@@ -1,10 +1,11 @@
 ﻿# https://zed0.co.uk/clang-format-configurator/
 ---
+BasedOnStyle: LLVM
 Language:     Cpp
 AlwaysBreakTemplateDeclarations: MultiLine
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: true
-BasedOnStyle: LLVM
+AllowShortLoopsOnASingleLine: true
 AccessModifierOffset: -4
 AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
