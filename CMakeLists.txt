@@ -37,6 +37,8 @@ hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
 hunter_add_package(range-v3)
 find_package(range-v3 CONFIG REQUIRED)
+hunter_add_package(fmt)
+find_package(fmt CONFIG REQUIRED)
 
 enable_testing()
 
