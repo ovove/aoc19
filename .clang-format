@@ -11,6 +11,7 @@ AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
 BinPackArguments: false
 BinPackParameters: false
+BreakConstructorInitializers: BeforeComma
 ColumnLimit: 100
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 IndentWidth: 4
